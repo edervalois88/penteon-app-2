@@ -27,6 +27,7 @@ function FactCard({ item }: { item: CatFactWithPerson }) {
             fill
             sizes="56px"
             src={item.person.avatar}
+            unoptimized
           />
         ) : (
           <div className="flex h-full w-full items-center justify-center bg-linear-to-br from-orange-200 to-pink-200 text-sm font-semibold uppercase text-slate-700">

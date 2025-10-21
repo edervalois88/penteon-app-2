@@ -8,6 +8,7 @@ const nextConfig: NextConfig = {
         hostname: "randomuser.me",
       },
     ],
+    unoptimized: true,
   },
 };
 

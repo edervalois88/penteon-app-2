@@ -60,7 +60,7 @@ export default function Home() {
               </p>
             </div>
             <div className="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-right text-xs font-medium text-slate-500 shadow-inner">
-              <p>Pila tecnologica</p>
+              <p>Satack Solicitado:</p>
               <p className="mt-1 text-sm font-semibold text-slate-700">
                 Next.js / React Query / TailwindCSS
               </p>
