@@ -47,7 +47,7 @@ export default function Home() {
                 aleatoriamente para practicar React Query y manejo de paginacion.
               </p>
               <p className="mt-2 text-xs text-slate-500">
-                Hecha por mi con dedicacion y mucho cafe. Codigo abierto en{" "}
+                Codigo abierto en{" "}
                 <a
                   className="font-semibold text-orange-500 underline"
                   href="https://github.com/edervalois88/penteon-app-2"
