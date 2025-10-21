@@ -37,7 +37,7 @@ export default function Home() {
           <div className="flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
             <div>
               <p className="text-xs font-semibold uppercase tracking-[0.3em] text-orange-500">
-                reto-personal
+                Prueba Tecnica
               </p>
               <h1 className="mt-2 text-2xl font-semibold text-slate-900 sm:text-3xl">
                 Curiosidades felinas + personas aleatorias
