@@ -31,7 +31,7 @@ const CatFactFeed = dynamic(() => import("@/components/cat-fact-feed"), {
 export default function Home() {
   return (
     <div className="relative min-h-dvh bg-slate-100 text-slate-900">
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-72 bg-gradient-to-r from-orange-400 via-pink-500 to-indigo-500 opacity-50 blur-3xl" />
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-72 bg-gradient-to-r from-orange-400 via-purple-500 to-indigo-500 opacity-50 blur-3xl" />
       <div className="relative mx-auto flex min-h-dvh max-w-3xl flex-col gap-10 px-4 pb-16 pt-14 sm:px-6 lg:px-0">
         <header className="rounded-3xl border border-white/40 bg-white/80 p-6 shadow-[0_12px_40px_rgba(15,23,42,0.12)] backdrop-blur">
           <div className="flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
