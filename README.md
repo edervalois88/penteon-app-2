@@ -39,3 +39,9 @@ https://penteon-app-2.vercel.app/
 
 ## Errores que observe
 - **Advertencia de hidratacion en desarrollo:** aparecio cuando tenia extensiones como LanguageTool instaladas. Estas extensiones inyectan atributos (`data-lt-installed`, `bis_skin_checked`) y rompen la hidratacion. Solucion: probar en una ventana limpia o desactivar las extensiones.
+
+## Proximos pasos a evaluar
+
+- Anadir pruebas automaticas para las funciones que mezclan datos de ambas APIs.
+- Incorporar manejo de errores mas granular (por ejemplo, mensajes diferenciados para cada API).
+- Evaluar un modo offline usando el cache de React Query.
