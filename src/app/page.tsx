@@ -3,6 +3,7 @@
 import dynamic from "next/dynamic";
 import { CAT_FACTS_PAGE_SIZE } from "@/lib/cat-facts";
 
+// Decidi cargar el feed de manera dinamica sin SSR porque confia en APIs del navegador y eventos solo del cliente.
 const CatFactFeed = dynamic(() => import("@/components/cat-fact-feed"), {
   ssr: false,
   loading: () => (
@@ -36,26 +37,39 @@ export default function Home() {
           <div className="flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
             <div>
               <p className="text-xs font-semibold uppercase tracking-[0.3em] text-orange-500">
-                react-coding-challenge
+                reto-personal
               </p>
               <h1 className="mt-2 text-2xl font-semibold text-slate-900 sm:text-3xl">
-                Cat Facts + Random Humans
+                Curiosidades felinas + personas aleatorias
               </h1>
               <p className="mt-2 max-w-xl text-sm text-slate-600">
-                Scroll through delightful cat trivia paired with random people,
-                courtesy of Cat Fact API and Random User API.
+                Comparto curiosidades de gatos combinadas con perfiles generados
+                aleatoriamente para practicar React Query y manejo de paginacion.
+              </p>
+              <p className="mt-2 text-xs text-slate-500">
+                Hecha por mi con dedicacion y mucho cafe. Codigo abierto en{" "}
+                <a
+                  className="font-semibold text-orange-500 underline"
+                  href="https://github.com/edervalois88/penteon-app-2"
+                  rel="noreferrer"
+                  target="_blank"
+                >
+                  github.com/edervalois88/penteon-app-2
+                </a>
+                .
               </p>
             </div>
             <div className="rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3 text-right text-xs font-medium text-slate-500 shadow-inner">
-              <p>Tech stack</p>
+              <p>Pila tecnologica</p>
               <p className="mt-1 text-sm font-semibold text-slate-700">
-                Next.js · React Query · TailwindCSS
+                Next.js / React Query / TailwindCSS
               </p>
             </div>
           </div>
         </header>
 
         <main className="flex-1 rounded-3xl border border-white/40 bg-white/80 p-6 shadow-[0_12px_40px_rgba(15,23,42,0.12)] backdrop-blur">
+          {/* Aqui delego el contenido al feed porque encapsula la logica de paginacion y estados asincronos. */}
           <CatFactFeed />
         </main>
       </div>

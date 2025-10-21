@@ -1,36 +1,41 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Penteon App
 
-## Getting Started
+Construi esta aplicacion con Next.js 15 y React Query para practicar como combino datos de dos APIs publicas: [Cat Facts](https://catfact.ninja/) y [Random User](https://randomuser.me/). El objetivo es mostrar curiosidades felinas junto con perfiles generados aleatoriamente, todo con una experiencia de scroll infinito.
 
-First, run the development server:
+## Demo y codigo
+- Produccion: desplegare la app en Vercel.
+- Repositorio: [github.com/edervalois88/penteon-app-2](https://github.com/edervalois88/penteon-app-2)
 
+## Caracteristicas principales
+- Renderizado con la App Router de Next.js y fuentes Geist configuradas a nivel de layout.
+- React Query para cargar paginas de datos con `useInfiniteQuery`.
+- Componentes cliente documentados en primera persona para explicar mi razonamiento.
+- TailwindCSS 4 (version canary) para estilos utilitarios.
+
+## Requisitos
+- Node.js 18.18 o superior (recomiendo la LTS mas reciente).
+- npm v9+ (incluido con Node).
+
+## Como ejecutar en local
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
+Luego visito [http://localhost:3000](http://localhost:3000) para explorar la interfaz.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Comandos utiles
+- `npm run dev`: servidor de desarrollo.
+- `npm run build`: build de produccion (ver nota de errores).
+- `npm run start`: servidor de produccion local despues del build.
+- `npm run lint`: analisis estatico con ESLint.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Variables de entorno
+Actualmente no necesito variables de entorno. Si decido agregar servicios privados mas adelante, documentare los nombres abajo.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Despliegue en Vercel
+Este poryeto esta publicado en Vercel en la siguiente liga: 
 
-## Learn More
+https://penteon-app-2.vercel.app/
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Errores que observe
+- **Advertencia de hidratacion en desarrollo:** aparecio cuando tenia extensiones como LanguageTool instaladas. Estas extensiones inyectan atributos (`data-lt-installed`, `bis_skin_checked`) y rompen la hidratacion. Solucion: probar en una ventana limpia o desactivar las extensiones.

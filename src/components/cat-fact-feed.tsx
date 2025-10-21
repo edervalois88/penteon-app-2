@@ -9,18 +9,20 @@ import {
   fetchCatFactsPage,
 } from "@/lib/cat-facts";
 
+// Prefiero derivar las iniciales en el cliente para que la tarjeta tenga un fallback amistoso cuando falte la foto.
 function getInitials(name: string) {
   const [first = "", second = ""] = name.split(" ");
   return `${first.charAt(0)}${second.charAt(0)}`.trim().toUpperCase() || "??";
 }
 
+// Esta tarjeta presenta cada hecho junto a la persona; separo el componente para aislar la UI y reusarla en el listado.
 function FactCard({ item }: { item: CatFactWithPerson }) {
   return (
     <article className="flex items-start gap-4 rounded-2xl border border-slate-200 bg-white/90 p-5 shadow-sm transition-shadow duration-200 hover:shadow-lg">
       <div className="relative h-14 w-14 shrink-0 overflow-hidden rounded-full border border-slate-200 bg-slate-100">
         {item.person.avatar ? (
           <Image
-            alt={`${item.person.name}'s avatar`}
+            alt={`Avatar de ${item.person.name}`}
             className="object-cover"
             fill
             sizes="56px"
@@ -42,6 +44,7 @@ function FactCard({ item }: { item: CatFactWithPerson }) {
   );
 }
 
+// Mantengo un esqueleto simple para indicar cargando sin bloquear el resto de la UI.
 function FactCardSkeleton() {
   return (
     <article className="flex items-start gap-4 rounded-2xl border border-transparent bg-white/70 p-5">
@@ -59,6 +62,7 @@ function FactCardSkeleton() {
 }
 
 export function CatFactFeed() {
+  // Uso una consulta infinita porque la API expone paginacion y quiero soporte de scroll infinito.
   const {
     data,
     error,
@@ -77,11 +81,13 @@ export function CatFactFeed() {
     staleTime: 1000 * 30,
   });
 
+  // Aplano todas las paginas para renderizar una lista continua de tarjetas.
   const items = useMemo(
     () => data?.pages.flatMap((page) => page.items) ?? [],
     [data],
   );
 
+  // Guardo una referencia al marcador de scroll para poder observarlo con IntersectionObserver.
   const loadMoreRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
@@ -90,6 +96,7 @@ export function CatFactFeed() {
       return;
     }
 
+    // Configuro IntersectionObserver para disparar la siguiente pagina solo cuando el usuario se acerca al final.
     const observer = new IntersectionObserver(
       (entries) => {
         const isVisible = entries[0]?.isIntersecting;
@@ -116,14 +123,14 @@ export function CatFactFeed() {
           <p className="text-sm font-medium text-red-700">
             {error instanceof Error
               ? error.message
-              : "Something went wrong while loading cat facts."}
+              : "Ocurrio un problema al cargar los datos de los gatos."}
           </p>
           <button
             className="mt-4 inline-flex items-center rounded-full bg-red-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-red-500"
             onClick={() => refetch()}
             type="button"
           >
-            Try again
+            Reintentar
           </button>
         </div>
       ) : null}
@@ -142,13 +149,13 @@ export function CatFactFeed() {
 
       {showInlineError ? (
         <div className="rounded-2xl border border-amber-200 bg-amber-50/80 p-4 text-center text-sm text-amber-700">
-          Something went wrong while loading more cat facts.
+          Hubo un problema al cargar mas curiosidades.
           <button
             className="ml-3 inline-flex items-center rounded-full bg-amber-600 px-3 py-1 text-xs font-semibold text-white transition hover:bg-amber-500"
             onClick={() => fetchNextPage()}
             type="button"
           >
-            Retry
+            Reintentar
           </button>
         </div>
       ) : null}
@@ -157,7 +164,7 @@ export function CatFactFeed() {
 
       {!hasNextPage && !isPending && items.length > 0 ? (
         <p className="pb-2 text-center text-xs uppercase tracking-wide text-slate-400">
-          You&apos;re all caught up on cat facts.
+          Ya revisaste todas las curiosidades disponibles.
         </p>
       ) : null}
 

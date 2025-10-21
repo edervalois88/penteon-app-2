@@ -35,6 +35,7 @@ export type CatFactsPage = {
   nextPage?: number;
 };
 
+// Normalizo los nombres porque la API entrega los segmentos por separado y quiero mostrar un string limpio.
 function normalizeName({
   title,
   first,
@@ -48,13 +49,15 @@ export async function fetchCatFactsPage(
   page: number,
   signal?: AbortSignal,
 ): Promise<CatFactsPage> {
+  // Pido la pagina de curiosidades en paralelo con la de usuarios para parearlos por indice.
   const factsResponse = await fetch(
     `${CAT_FACTS_ENDPOINT}?limit=${CAT_FACTS_PAGE_SIZE}&page=${page}`,
     { signal },
   );
 
   if (!factsResponse.ok) {
-    throw new Error("We could not load cat facts right now.");
+    // Propago un mensaje claro para que el componente muestre el error en pantalla.
+    throw new Error("No pude cargar las curiosidades felinas en este momento.");
   }
 
   const factsPayload = (await factsResponse.json()) as CatFactsApiResponse;
@@ -66,13 +69,14 @@ export async function fetchCatFactsPage(
   );
 
   if (!usersResponse.ok) {
-    throw new Error("We could not load random profiles right now.");
+    throw new Error("No pude cargar los perfiles aleatorios en este momento.");
   }
 
   const usersPayload = (await usersResponse.json()) as RandomUserApiResponse;
 
   const fallbackUser = usersPayload.results[0];
 
+  // Construyo la lista de items reusando el primer usuario como respaldo para no dejar tarjetas sin datos.
   const items: CatFactsPage["items"] = factsPayload.data.map((fact, index) => {
     const user = usersPayload.results[index] ?? fallbackUser;
     const id =
@@ -91,6 +95,7 @@ export async function fetchCatFactsPage(
 
   const hasNextPage = factsPayload.current_page < factsPayload.last_page;
 
+  // Indico la siguiente pagina solo si el backend reporta que aun quedan datos.
   return {
     items,
     nextPage: hasNextPage ? factsPayload.current_page + 1 : undefined,
